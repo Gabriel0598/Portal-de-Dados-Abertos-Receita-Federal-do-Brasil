@@ -58,6 +58,9 @@ Este é um escopo geral da arquitetura de dados criado através da ferramenta Ex
   - pip install requests
 
 Estrutura de pastas:
+
+![image](https://github.com/user-attachments/assets/bf52ec80-76df-402e-afa8-6f1d433fa050)
+
 - architecture (diagramas de arquitetura)
 - data
   - landing_zone (Dados brutos conforme origem - csv/ txt/ etc)
