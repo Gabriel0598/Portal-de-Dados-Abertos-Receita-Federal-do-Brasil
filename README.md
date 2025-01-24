@@ -39,3 +39,7 @@ Estrutura de Desenvolvimento - Pipeline de Dados:
 - Aplicar as regras de negócio:
   - flag_socio_estrangeiro = True se documento_socio for estrangeiro.
   - doc_alvo = True quando porte da empresa = 03 e qtde_socios > 1.
+
+# Arquitetura
+Este é um escopo geral da arquitetura de dados criado através da ferramenta Excalidraw, modelo se encontra nas pastas do repositório:
+![image](https://github.com/user-attachments/assets/c2bdd2c9-f19f-4428-977b-295c6b3f0cdb)
