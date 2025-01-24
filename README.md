@@ -43,3 +43,16 @@ Estrutura de Desenvolvimento - Pipeline de Dados:
 # Arquitetura
 Este é um escopo geral da arquitetura de dados criado através da ferramenta Excalidraw, modelo se encontra nas pastas do repositório:
 ![image](https://github.com/user-attachments/assets/c2bdd2c9-f19f-4428-977b-295c6b3f0cdb)
+
+# Setup Inicial
+- Inicialmente você deve instalar a versão mais recente do Python em seu OS, sendo a mais recente em Jan/2025 a versão 3.13, é possível obtê-la a partir do site oficial: (https://www.python.org/)
+- Após basta abrir seu terminal na pasta do projeto, criar o ambiente venv e ativá-lo:
+  - python3 -m venv .venv
+  - source .venv/bin/activate
+- Confirmar que está ativo:
+  - which python
+- Para os pacotes a serem utilizados no projeto, utilizar o gerenciador de pacotes pip:
+  - python3 -m pip install --upgrade pip
+  - python3 -m pip --version
+- Instalar os seguintes pacotes:
+  - pip install requests
