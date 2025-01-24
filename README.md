@@ -56,3 +56,17 @@ Este é um escopo geral da arquitetura de dados criado através da ferramenta Ex
   - python3 -m pip --version
 - Instalar os seguintes pacotes:
   - pip install requests
+
+Estrutura de pastas:
+- architecture (diagramas de arquitetura)
+- data
+  - landing_zone (Dados brutos conforme origem - csv/ txt/ etc)
+  - bronze (Dados Brutos como parquet - Delta Lake)
+  - silver (Dados Refinados como parquet - Delta Lake)
+  - gold (Dados Enriquecidos como parquet - Delta Lake)
+- docker (docker-file/ Docker Compose)
+- src
+  - data_exporter (Exportação para banco de dados relacional/ Consultas analíticas)
+  - pipelines (Códigos python/ pyspark para integração e transformação de dados, separados por camadas)
+  - utils (Pacotes utilitários)
+- Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
