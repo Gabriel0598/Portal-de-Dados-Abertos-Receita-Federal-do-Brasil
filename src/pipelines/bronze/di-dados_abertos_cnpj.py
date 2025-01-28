@@ -33,7 +33,9 @@ def download_and_extract_data(end_url, destination_folder):
         print(f"Erro inesperado: {e}")
 
 # Endpoint origem
-end_url = "https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/?C=N;O=D"
+year_search="2025"
+month_search="01"
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/"
 
 # Diretório destino
 destination_folder = "/data/bronze/land_zone"
