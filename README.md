@@ -54,8 +54,10 @@ Este é um escopo geral da arquitetura de dados criado através da ferramenta Ex
 - Para os pacotes a serem utilizados no projeto, utilizar o gerenciador de pacotes pip:
   - python3 -m pip install --upgrade pip
   - python3 -m pip --version
-- Instalar os seguintes pacotes:
-  - pip install requests
+- Criar e Instalar pacotes do arquivo de requirements.txt:
+  - pip freeze > requirements.txt
+Pacotes e versões a serem instalados já estão informados nos requirementos, apenas executar:
+  - pip install -r requirements.txt
 
 Estrutura de pastas:
 
