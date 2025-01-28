@@ -32,10 +32,13 @@ def download_and_extract_data(end_url, destination_folder):
     except Exception as e:
         print(f"Erro inesperado: {e}")
 
-# Endpoint origem
+# Endpoint origem - Arquivos empresas
 year_search="2025"
 month_search="01"
-end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/"
+file_zip = "Empresas1.zip"
+
+# URL para busca de arquivos especificos
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
 
 # Diretório destino
 destination_folder = "/data/bronze/land_zone"
