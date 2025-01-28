@@ -58,6 +58,8 @@ Este é um escopo geral da arquitetura de dados criado através da ferramenta Ex
   - pip freeze > requirements.txt
 Pacotes e versões a serem instalados já estão informados nos requirementos, apenas executar:
   - pip install -r requirements.txt
+Arquivo "requirements.txt" já atende a instalação da versão certifi correta, porém caso persista em apresentar erro de certificado SSL no momento do run do python de integração, realizar upgrade manualmente do certifi através do comando:
+  - pip install --upgrade certifi
 
 Estrutura de pastas:
 
@@ -75,3 +77,6 @@ Estrutura de pastas:
   - pipelines (Códigos python/ pyspark para integração e transformação de dados, separados por camadas)
   - utils (Pacotes utilitários)
 - Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
+
+Execução do projeto:
+- Executar "di-dados_abertos_cnpj.py", em uma execução com sucesso será retornado via CLI:
