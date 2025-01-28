@@ -80,3 +80,5 @@ Estrutura de pastas:
 
 Execução do projeto:
 - Executar "di-dados_abertos_cnpj.py", em uma execução com sucesso será retornado via CLI:
+![image](https://github.com/user-attachments/assets/047c6824-2f44-4af9-bd14-96ddb58bb2e6)
+
