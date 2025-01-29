@@ -26,7 +26,7 @@ def download_and_extract_data(end_url, destination_folder):
 
                 print(f"Extraindo arquivos para {destination_folder}")
                 zfile.extractall(destination_folder)
-                print("Extração com sucesso")
+                print(f"Extração com sucesso para diretório: {destination_folder}")
         elif response.status_code == 400:
             print("Requisição inválida")
         elif response.status_code == 401:
