@@ -63,7 +63,7 @@ Arquivo "requirements.txt" já atende a instalação da versão certifi correta,
 
 Estrutura de pastas:
 
-![image](https://github.com/user-attachments/assets/bf52ec80-76df-402e-afa8-6f1d433fa050)
+![repo_structure](https://github.com/user-attachments/assets/699f48b6-8d7e-4d79-abe4-6cd511a79e64)
 
 - architecture (diagramas de arquitetura)
 - data
@@ -81,6 +81,6 @@ Estrutura de pastas:
 Execução do projeto:
 - Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
 - #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Stone/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
-- Para execução com sucesso será retornado via CLI:
+- Para execução parcial ou complementamente com sucesso será retornado via CLI:
+![code_exec](https://github.com/user-attachments/assets/47977742-3f1d-4b57-b1d1-1d9cffd9be3b)
 ![image](https://github.com/user-attachments/assets/047c6824-2f44-4af9-bd14-96ddb58bb2e6)
-
