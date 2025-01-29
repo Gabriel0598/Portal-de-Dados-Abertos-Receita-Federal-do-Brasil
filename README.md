@@ -79,6 +79,8 @@ Estrutura de pastas:
 - Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
 
 Execução do projeto:
-- Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo", em uma execução com sucesso será retornado via CLI:
+- Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
+- default: #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Stone/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
+- Para execução com sucesso será retornado via CLI:
 ![image](https://github.com/user-attachments/assets/047c6824-2f44-4af9-bd14-96ddb58bb2e6)
 
