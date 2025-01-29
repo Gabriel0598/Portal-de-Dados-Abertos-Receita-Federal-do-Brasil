@@ -45,7 +45,7 @@ def download_and_extract_data(end_url, destination_folder):
         print(f"Erro inesperado: {e}")
 
 # Path relativo do projeto
-project_root = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 destination_folder = os.path.join(project_root, "data", "bronze", "land_zone")
 
 # ----------------------------------------------------------------
