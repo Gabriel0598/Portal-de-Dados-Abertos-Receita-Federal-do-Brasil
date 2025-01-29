@@ -54,12 +54,16 @@ Este é um escopo geral da arquitetura de dados criado através da ferramenta Ex
 - Para os pacotes a serem utilizados no projeto, utilizar o gerenciador de pacotes pip:
   - python3 -m pip install --upgrade pip
   - python3 -m pip --version
-- Instalar os seguintes pacotes:
-  - pip install requests
+- Criar e Instalar pacotes do arquivo de requirements.txt:
+  - pip freeze > requirements.txt
+Pacotes e versões a serem instalados já estão informados nos requirementos, apenas executar:
+  - pip install -r requirements.txt
+Arquivo "requirements.txt" já atende a instalação da versão certifi correta, porém caso persista em apresentar erro de certificado SSL no momento do run do python de integração, realizar upgrade manualmente do certifi através do comando:
+  - pip install --upgrade certifi
 
 Estrutura de pastas:
 
-![image](https://github.com/user-attachments/assets/bf52ec80-76df-402e-afa8-6f1d433fa050)
+![repo_structure](https://github.com/user-attachments/assets/699f48b6-8d7e-4d79-abe4-6cd511a79e64)
 
 - architecture (diagramas de arquitetura)
 - data
@@ -73,3 +77,10 @@ Estrutura de pastas:
   - pipelines (Códigos python/ pyspark para integração e transformação de dados, separados por camadas)
   - utils (Pacotes utilitários)
 - Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
+
+Execução do projeto:
+- Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
+- #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Stone/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
+- Para execução parcial ou complementamente com sucesso será retornado via CLI:
+![code_exec](https://github.com/user-attachments/assets/759166d7-7a58-43d5-99d6-13966d8115ad)
+![image](https://github.com/user-attachments/assets/047c6824-2f44-4af9-bd14-96ddb58bb2e6)
