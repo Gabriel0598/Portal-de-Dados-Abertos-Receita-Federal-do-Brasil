@@ -46,7 +46,7 @@ def download_and_extract_data(end_url, destination_folder):
 
 # Path relativo do projeto
 project_root = os.path.dirname(os.path.abspath(__file__))
-destination_folder = os.path.join(project_root, "/data/bronze/land_zone")
+destination_folder = os.path.join(project_root, "data", "bronze", "land_zone")
 
 # ----------------------------------------------------------------
 # Endpoint origem - Arquivos empresas
