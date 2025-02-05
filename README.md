@@ -101,5 +101,7 @@ Silver
   - Informar path completo do seu diretório local até a pasta land_zone (Caso seja Windows informar seguindo padrão com / comuns)
     - #### Ex: "C:/Users/Proprietario/OneDrive/Documentos/Geral/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/data/bronze/land_zone"
   - Após execução com sucesso arquivos serão movidos para DBFS
+![cli-db4](https://github.com/user-attachments/assets/c2a4a8db-6633-4818-ab78-72f0bb9e38db)
+
 - Executar "etl_silver_empresas.py" via Databricks
 - Executar "etl_silver_socios.py" via Databricks
