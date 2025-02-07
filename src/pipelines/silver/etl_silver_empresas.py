@@ -20,8 +20,8 @@ path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECS
 schemaEmpresas = StructType([
     StructField("cnpj", IntegerType(), True),
     StructField("razao_social", StringType(), True),
-    StructField("cod_natureza_juridica", IntegerType(), True),
-    StructField("cod_qualificao_responsavel", IntegerType(), True),
+    StructField("natureza_juridica", IntegerType(), True),
+    StructField("qualificao_responsavel", IntegerType(), True),
     StructField("capital_social", FloatType(), True),
     StructField("cod_porte", StringType(), True),
     StructField("localizacao", StringType(), True)
@@ -42,11 +42,10 @@ df_list_emp = (df_list_emp
                         ).select(
                             'cnpj'
                             , 'razao_social'
-                            , 'cod_natureza_juridica'
-                            , 'cod_qualificao_responsavel'
+                            , 'natureza_juridica'
+                            , 'qualificao_responsavel'
                             , 'capital_social'
                             , 'cod_porte'
-                            , 'localizacao'
                         )
 
 # Criar schema no metastore
