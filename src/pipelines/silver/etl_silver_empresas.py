@@ -10,7 +10,8 @@ spark = (SparkSession.builder
               .config("spark.databricks.service.server.enabled", "true")
                 .getOrCreate())
 
-bronze_path_empre = os.path.join(os.getcwd(), 'data/bronze/land_zone/*EMPRECSV')
+bronze_path_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/K3241.K03200Y1.D50111.EMPRECSV"
 
-# df = spark.read.csv(bronze_path_empre, header=True, inferSchema=True)
-# df.printSchema()
+df = spark.read.options(header=True, inferSchema=True, sep=';').format("csv")
+#.csv(bronze_path_empre, header=True, inferSchema=True)
+df.printSchema()
