@@ -44,4 +44,12 @@ ls -l "$LOCAL_DIR"
 
 # Copia todos os arquivos da pasta local para o DBFS
 echo "Copiando arquivos de $LOCAL_DIR para $DBFS_DIR..."
-databricks fs cp --recursive "$LOCAL_DIR" "$DBFS_DIR"
+for file in "$LOCAL_DIR"/*; do
+    filename=$(basename "$file")
+    if databricks fs ls "$DBFS_DIR/$filename" > /dev/null 2>&1; then
+        echo "Arquivo $DBFS_DIR/$filename já existe. Pulando cópia."
+    else
+        echo "Copiando arquivo $file para $DBFS_DIR..."
+        databricks fs cp "$file" "$DBFS_DIR"
+    fi
+done
