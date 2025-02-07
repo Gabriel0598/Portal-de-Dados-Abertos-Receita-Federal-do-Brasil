@@ -107,3 +107,15 @@ end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj
 
 # Invocação da função de busca e extração do endpoint
 download_and_extract_data(end_url, destination_folder)
+
+# ----------------------------------------------------------------
+# Endpoint origem - Arquivos cnaes
+year_search = "2025"
+month_search = "01"
+file_zip = "Estabelecimentos1.zip"
+
+# URL para busca de arquivos RFB
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
+
+# Invocação da função de busca e extração do endpoint
+download_and_extract_data(end_url, destination_folder)
