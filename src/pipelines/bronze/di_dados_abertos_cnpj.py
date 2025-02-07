@@ -52,10 +52,10 @@ destination_folder = os.path.join(project_root, "data", "bronze", "land_zone")
 # Endpoint origem - Arquivos empresas
 year_search="2025"
 month_search="01"
-file1_zip = "Empresas1.zip"
+file_zip = "Empresas1.zip"
 
 # URL para busca de arquivos RFB
-end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file1_zip}"
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
 
 # Invocação da função de busca e extração do endpoint
 download_and_extract_data(end_url, destination_folder)
@@ -64,10 +64,46 @@ download_and_extract_data(end_url, destination_folder)
 # Endpoint origem - Arquivos sócios
 year_search = "2025"
 month_search = "01"
-file2_zip = "Socios1.zip"
+file_zip = "Socios1.zip"
 
 # URL para busca de arquivos RFB
-end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file2_zip}"
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
+
+# Invocação da função de busca e extração do endpoint
+download_and_extract_data(end_url, destination_folder)
+
+# ----------------------------------------------------------------
+# Endpoint origem - Arquivos naturezas
+year_search = "2025"
+month_search = "01"
+file_zip = "Naturezas.zip"
+
+# URL para busca de arquivos RFB
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
+
+# Invocação da função de busca e extração do endpoint
+download_and_extract_data(end_url, destination_folder)
+
+# ----------------------------------------------------------------
+# Endpoint origem - Arquivos qualificacoes
+year_search = "2025"
+month_search = "01"
+file_zip = "Qualificacoes.zip"
+
+# URL para busca de arquivos RFB
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
+
+# Invocação da função de busca e extração do endpoint
+download_and_extract_data(end_url, destination_folder)
+
+# ----------------------------------------------------------------
+# Endpoint origem - Arquivos cnaes
+year_search = "2025"
+month_search = "01"
+file_zip = "Cnaes.zip"
+
+# URL para busca de arquivos RFB
+end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip}"
 
 # Invocação da função de busca e extração do endpoint
 download_and_extract_data(end_url, destination_folder)
