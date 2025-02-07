@@ -13,11 +13,12 @@ spark = (SparkSession.builder
               .config("spark.databricks.service.server.enabled", "true")
                 .getOrCreate())
 
+# Path source
 path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECSV"
 
 # definicao de schema
 schemaEmpresas = StructType([
-    StructField("id", IntegerType(), True),
+    StructField("cnpj", IntegerType(), True),
     StructField("razao_social", StringType(), True),
     StructField("cod_natureza_juridica", IntegerType(), True),
     StructField("cod_qualificao_responsavel", IntegerType(), True),
@@ -26,18 +27,20 @@ schemaEmpresas = StructType([
     StructField("localizacao", StringType(), True)
 ])
 
+# Leitura de arquivo bruto
 df_list_emp = spark.read.options(header=False, inferSchema=True, sep=';') \
                 .format("csv") \
                     .schema(schemaEmpresas) \
                         .load(path_bronze_empre)
-                        
+
+# Remoção de espaços em branco                       
 df_list_emp = (df_list_emp
                .withColumn("razao_social_format",
                            F.regexp_replace(col("razao_social"), "^\\s+", ""))
                     .drop("razao_social")
                         .withColumnRenamed("razao_social_format", "razao_social")
                         ).select(
-                            'id'
+                            'cnpj'
                             , 'razao_social'
                             , 'cod_natureza_juridica'
                             , 'cod_qualificao_responsavel'
