@@ -71,11 +71,14 @@ destination_folder = os.path.join(project_root, "data", "bronze", "land_zone")
 # ----------------------------------------------------------------
 # Endpoint origem - Arquivos empresas
 # Input de range de datas pelo usuário
-print("Consultar arquivos do enpoint por período\n")
+print("Consultar arquivos do enpoint por período")
+print("É recomendável selecionar um período superior a três meses devido a variação de registros neste período\n")
+
 start_year = input("Informe o ano inicial (YYYY) para consulta dos arquivos: ")
 start_month = input("Informe o mês inicial (MM) para consulta dos arquivos: ")
 end_year = input("Informe o ano final (YYYY) para consulta dos arquivos: ")
 end_month = input("Informe o mês final (MM) para consulta dos arquivos: ")
+
 print("\n Possíveis arquivos a serem consultados:")
 print('''
         - Empresas0.zip
