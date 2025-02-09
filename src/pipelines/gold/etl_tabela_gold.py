@@ -17,8 +17,17 @@ spark = (SparkSession.builder
 tbl_empresas = 'hive_metastore.db_rfb.tbl_slv_empresas'
 tbl_socios = 'hive_metastore.db_rfb.tbl_slv_socios'
 
-df_slv_emp = spark.read.table(tbl_empresas).withColumnRenamed("cnpj", "cnpj_emp")
-df_slv_soc = spark.read.table(tbl_socios).withColumnRenamed("cnpj", "cnpj_soc")
+df_slv_emp = (spark.read.table(tbl_empresas)
+              .withColumnRenamed("cnpj", "cnpj_emp")
+                .withColumnRenamed("data_carga_dados", "data_carga_dados_emp")
+                    .withColumnRenamed("data_origem_arquivo", "data_origem_arquivo_emp")
+)
+
+df_slv_soc = (spark.read.table(tbl_socios)
+              .withColumnRenamed("cnpj", "cnpj_soc")
+                .withColumnRenamed("data_carga_dados", "data_carga_dados_soc")
+                    .withColumnRenamed("data_origem_arquivo", "data_origem_arquivo_soc")
+)
 
 df_slv_emp.printSchema()
 df_slv_soc.printSchema()
