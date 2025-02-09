@@ -1,12 +1,9 @@
 import os
+from datetime import datetime
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType
 from pyspark.sql.functions import col
-
-# Unset SPARK_HOME environment variable
-# if 'SPARK_HOME' in os.environ:
-#    del os.environ['SPARK_HOME']
 
 spark = (SparkSession.builder
              .appName("etl_silver_socios_empresas")
@@ -14,7 +11,7 @@ spark = (SparkSession.builder
                 .getOrCreate())
 
 # Path source
-path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECSV"
+path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECSV.csv"
 
 # definicao de schema
 schemaEmpresas = StructType([
@@ -33,14 +30,25 @@ df_list_emp = spark.read.options(header=False, inferSchema=True, sep=';') \
                     .schema(schemaEmpresas) \
                         .load(path_bronze_empre)
 
-# Remoção de espaços em branco                       
+# Extração do ano e mês do nome do arquivo
+file_name = os.path.basename(path_bronze_empre)
+year_month = file_name.split("_")[-1].split(".")[0]
+
+# Data atual
+current_date = datetime.now().strftime("%Y-%m-%d")
+
+# Remoção de espaços em branco
 df_list_emp = (df_list_emp
                .withColumn("razao_social_format",
                            F.regexp_replace(col("razao_social"), "^\\s+", ""))
                     .drop("razao_social")
                         .withColumnRenamed("razao_social_format", "razao_social")
+                        .withColumn("data_origem_arquivo", F.lit(year_month))
+                        .withColumn("data_carga_dados", F.lit(current_date))
                         ).select(
-                            'cnpj'
+                            'data_carga_dados'
+                            , 'data_origem_arquivo'
+                            , 'cnpj'
                             , 'razao_social'
                             , 'natureza_juridica'
                             , 'qualificao_responsavel'
