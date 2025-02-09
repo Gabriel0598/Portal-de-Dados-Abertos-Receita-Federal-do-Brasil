@@ -105,3 +105,7 @@ Silver
 
 - Executar "etl_silver_empresas.py" via Databricks
 - Executar "etl_silver_socios.py" via Databricks
+
+Gold
+- Executar "etl_tabela_gold.py" via Databricks
+ETL será responsável por ler diretamente as tabelas silver, realizar as devidas transformações e salvar tabela final a ser consumida pela banco de dados
