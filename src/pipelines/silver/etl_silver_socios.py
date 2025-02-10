@@ -1,12 +1,9 @@
 import os
+from datetime import datetime
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from pyspark.sql.functions import col
-
-# Unset SPARK_HOME environment variable
-# if 'SPARK_HOME' in os.environ:
-#    del os.environ['SPARK_HOME']
 
 spark = (SparkSession.builder
              .appName("etl_silver_socios_empresas")
@@ -14,7 +11,7 @@ spark = (SparkSession.builder
                 .getOrCreate())
 
 # Path source
-path_bronze_soc = "dbfs:/FileStore/shared_uploads/default_user/bronze/*SOCIOCSV"
+path_bronze_soc = "dbfs:/FileStore/shared_uploads/default_user/bronze/*SOCIOCSV*.csv"
 
 # definicao de schema
 schemaSocios = StructType([
@@ -35,15 +32,30 @@ df_list_soc = spark.read.options(header=False, inferSchema=True, sep=';') \
                 .format("csv") \
                     .schema(schemaSocios) \
                         .load(path_bronze_soc)
-                        
-# Remoção de espaços em branco                       
+
+def extract_year_month(file_path):
+    file_name = os.path.basename(file_path)
+    year_month = file_name.split('_')[-1].split('.')[0]
+    return year_month
+
+# Adiciona colunas
+df_list_soc = df_list_soc.withColumn("data_origem_arquivo", F.input_file_name())
+df_list_soc = df_list_soc.withColumn("data_origem_arquivo", F.udf(extract_year_month, StringType())(col("data_origem_arquivo")))
+
+# Data atual
+current_date = datetime.now().strftime("%Y-%m-%d")
+
+# Remoção de espaços em branco
 df_list_soc = (df_list_soc
                .withColumn("nome_socio_format",
                            F.regexp_replace(col("nome_socio"), "^\\s+", ""))
                     .drop("nome_socio")
                         .withColumnRenamed("nome_socio_format", "nome_socio")
+                        .withColumn("data_carga_dados", F.lit(current_date))
                         ).select(
-                            'cnpj'
+                            'data_carga_dados'
+                            , 'data_origem_arquivo'
+                            , 'cnpj'
                             , 'tipo_socio'
                             , 'nome_socio'
                             , 'documento_socio'

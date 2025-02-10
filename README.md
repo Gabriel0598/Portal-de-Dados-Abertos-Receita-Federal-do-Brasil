@@ -39,6 +39,9 @@ Estrutura de Desenvolvimento - Pipeline de Dados:
 - Aplicar as regras de negócio:
   - flag_socio_estrangeiro = True se documento_socio for estrangeiro.
   - doc_alvo = True quando porte da empresa = 03 e qtde_socios > 1.
+5. Catálogo de dados de tabelas:
+- Tabelas silver seguem nomeclatura: slv
+- Tabelas gold seguem nomeclatura: gld
 
 # Arquitetura
 Este é um escopo geral da arquitetura de dados criado através da ferramenta Excalidraw, modelo se encontra nas pastas do repositório:
@@ -87,6 +90,10 @@ Criar Databricks Workspace Premium em sua cloud de preferência e realizar os de
 - Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
 
 ## Execução do projeto
+
+Databricks
+- Configurar e ligar cluster Databricks All-Purpose do tipo "Standard_DS3_v2", garantir que o cluster esteja sempre em execução de forma a realizar a transformação
+
 Bronze
 - Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
 - #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
@@ -105,3 +112,10 @@ Silver
 
 - Executar "etl_silver_empresas.py" via Databricks
 - Executar "etl_silver_socios.py" via Databricks
+
+Gold
+- Executar "etl_tabela_gold.py" via Databricks
+ETL será responsável por ler diretamente as tabelas silver, realizar as devidas transformações e salvar tabela final a ser consumida pela banco de dados
+
+MySQL
+Executar MySQL via Docker para carga de dados e consulta
