@@ -32,7 +32,7 @@ df_list_soc = spark.read.options(header=False, inferSchema=True, sep=';') \
                 .format("csv") \
                     .schema(schemaSocios) \
                         .load(path_bronze_soc)
-                        
+
 def extract_year_month(file_path):
     file_name = os.path.basename(file_path)
     year_month = file_name.split('_')[-1].split('.')[0]
@@ -44,8 +44,8 @@ df_list_soc = df_list_soc.withColumn("data_origem_arquivo", F.udf(extract_year_m
 
 # Data atual
 current_date = datetime.now().strftime("%Y-%m-%d")
-                        
-# Remoção de espaços em branco                       
+
+# Remoção de espaços em branco
 df_list_soc = (df_list_soc
                .withColumn("nome_socio_format",
                            F.regexp_replace(col("nome_socio"), "^\\s+", ""))
