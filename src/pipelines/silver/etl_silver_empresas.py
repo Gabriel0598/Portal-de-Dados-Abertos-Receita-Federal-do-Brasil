@@ -11,7 +11,7 @@ spark = (SparkSession.builder
                 .getOrCreate())
 
 # Path source
-path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECSV.csv"
+path_bronze_empre = "dbfs:/FileStore/shared_uploads/default_user/bronze/*EMPRECSV*.csv"
 
 # definicao de schema
 schemaEmpresas = StructType([
@@ -31,8 +31,14 @@ df_list_emp = spark.read.options(header=False, inferSchema=True, sep=';') \
                         .load(path_bronze_empre)
 
 # Extração do ano e mês do nome do arquivo
-file_name = os.path.basename(path_bronze_empre)
-year_month = file_name.split("_")[-1].split(".")[0]
+def extract_year_month(file_path):
+    file_name = os.path.basename(file_path)
+    year_month = file_name.split('_')[-1].split('.')[0]
+    return year_month
+
+# Adiciona colunas
+df_list_emp = df_list_emp.withColumn("data_origem_arquivo", F.input_file_name())
+df_list_emp = df_list_emp.withColumn("data_origem_arquivo", F.udf(extract_year_month, StringType())(col("data_origem_arquivo")))
 
 # Data atual
 current_date = datetime.now().strftime("%Y-%m-%d")
@@ -43,7 +49,6 @@ df_list_emp = (df_list_emp
                            F.regexp_replace(col("razao_social"), "^\\s+", ""))
                     .drop("razao_social")
                         .withColumnRenamed("razao_social_format", "razao_social")
-                        .withColumn("data_origem_arquivo", F.lit(year_month))
                         .withColumn("data_carga_dados", F.lit(current_date))
                         ).select(
                             'data_carga_dados'
