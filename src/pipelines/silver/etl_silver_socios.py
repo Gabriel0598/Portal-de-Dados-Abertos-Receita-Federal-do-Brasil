@@ -11,7 +11,7 @@ spark = (SparkSession.builder
                 .getOrCreate())
 
 # Path source
-path_bronze_soc = "dbfs:/FileStore/shared_uploads/default_user/bronze/*SOCIOCSV.csv"
+path_bronze_soc = "dbfs:/FileStore/shared_uploads/default_user/bronze/*SOCIOCSV*.csv"
 
 # definicao de schema
 schemaSocios = StructType([
@@ -33,9 +33,14 @@ df_list_soc = spark.read.options(header=False, inferSchema=True, sep=';') \
                     .schema(schemaSocios) \
                         .load(path_bronze_soc)
                         
-# Extração do ano e mês do nome do arquivo
-file_name = os.path.basename(path_bronze_soc)
-year_month = file_name.split("_")[-1].split(".")[0]
+def extract_year_month(file_path):
+    file_name = os.path.basename(file_path)
+    year_month = file_name.split('_')[-1].split('.')[0]
+    return year_month
+
+# Adiciona colunas
+df_list_soc = df_list_soc.withColumn("data_origem_arquivo", F.input_file_name())
+df_list_soc = df_list_soc.withColumn("data_origem_arquivo", F.udf(extract_year_month, StringType())(col("data_origem_arquivo")))
 
 # Data atual
 current_date = datetime.now().strftime("%Y-%m-%d")
@@ -46,7 +51,6 @@ df_list_soc = (df_list_soc
                            F.regexp_replace(col("nome_socio"), "^\\s+", ""))
                     .drop("nome_socio")
                         .withColumnRenamed("nome_socio_format", "nome_socio")
-                        .withColumn("data_origem_arquivo", F.lit(year_month))
                         .withColumn("data_carga_dados", F.lit(current_date))
                         ).select(
                             'data_carga_dados'
