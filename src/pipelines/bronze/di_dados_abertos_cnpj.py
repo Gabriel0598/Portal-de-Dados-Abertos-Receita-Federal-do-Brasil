@@ -32,7 +32,7 @@ def download_and_extract_data(end_url, destination_folder, year, month):
                 # Renomeia os arquivos extraídos para incluir ano e mês
                 for file_name in file_list:
                     base_name, ext = os.path.splitext(file_name)
-                    new_name = f"{base_name}_{year}-{month}{ext}.csv"
+                    new_name = f"{base_name}{ext}_{year}-{month}.csv"
                     os.rename(os.path.join(destination_folder, file_name), os.path.join(destination_folder, new_name))
                     print(f"Arquivo {file_name} renomeado para {new_name}")
         elif response.status_code == 400:
@@ -79,32 +79,9 @@ start_month = input("Informe o mês inicial (MM) para consulta dos arquivos: ")
 end_year = input("Informe o ano final (YYYY) para consulta dos arquivos: ")
 end_month = input("Informe o mês final (MM) para consulta dos arquivos: ")
 
-print("\n Possíveis arquivos a serem consultados:")
-print('''
-        - Empresas0.zip
-        - Empresas1.zip
-        - Empresas2.zip
-        - Empresas3.zip
-        - Empresas4.zip
-        - Empresas5.zip
-        - Empresas6.zip
-        - Empresas7.zip
-        - Empresas8.zip
-        - Empresas9.zip
-        - Socios0.zip
-        - Socios1.zip
-        - Socios2.zip
-        - Socios3.zip
-        - Socios4.zip
-        - Socios5.zip
-        - Socios6.zip
-        - Socios7.zip
-        - Socios8.zip
-        - Socios9.zip
-      ''')
-print("\nÉ recomendável seguir correlação entre arquivos consultados pelo número, ex = empresas1 e socios1/ empresas2 e socios2/ etc...")
-file_zip_emp = input("Informe o arquivo zip Empresas a ser consultado: ")
-file_zip_soc = input("Informe o arquivo zip Sócios a ser consultado: ")
+# Arquivos
+file_zip_emp = "Empresas0.zip"
+file_zip_soc = "Socios0.zip"
 
 # Converte datas de entrada
 start_date = datetime.strptime(f"{start_year}-{start_month}", "%Y-%m")
