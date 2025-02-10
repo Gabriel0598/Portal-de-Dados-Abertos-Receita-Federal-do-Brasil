@@ -131,3 +131,4 @@ Certifique-se de que o container MySQL está em execução e execute o script Py
 python src/pipelines/gold/load_data_to_mysql.py
 
 P.S. Consultar autor para informações ref. a arquivo .env
+OBS. Veficar se serviço MySQL está rodando em sua máquina na porta 3306 e encerrar para evitar conflito com container
