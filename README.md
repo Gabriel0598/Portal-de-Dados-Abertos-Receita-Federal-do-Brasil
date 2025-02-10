@@ -129,3 +129,5 @@ Passo 2: Executar o script Python
 Certifique-se de que o container MySQL está em execução e execute o script Python:
 
 python src/pipelines/gold/load_data_to_mysql.py
+
+P.S. Consultar autor para informações ref. a arquivo .env
