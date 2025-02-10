@@ -87,6 +87,10 @@ Criar Databricks Workspace Premium em sua cloud de preferência e realizar os de
 - Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
 
 ## Execução do projeto
+
+Databricks
+- Configurar e ligar cluster Databricks All-Purpose do tipo "Standard_DS3_v2", garantir que o cluster esteja sempre em execução de forma a realizar a transformação
+
 Bronze
 - Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
 - #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
