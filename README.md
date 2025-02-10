@@ -39,6 +39,9 @@ Estrutura de Desenvolvimento - Pipeline de Dados:
 - Aplicar as regras de negócio:
   - flag_socio_estrangeiro = True se documento_socio for estrangeiro.
   - doc_alvo = True quando porte da empresa = 03 e qtde_socios > 1.
+5. Catálogo de dados de tabelas:
+- Tabelas silver seguem nomeclatura: slv
+- Tabelas gold seguem nomeclatura: gld
 
 # Arquitetura
 Este é um escopo geral da arquitetura de dados criado através da ferramenta Excalidraw, modelo se encontra nas pastas do repositório:
@@ -113,3 +116,6 @@ Silver
 Gold
 - Executar "etl_tabela_gold.py" via Databricks
 ETL será responsável por ler diretamente as tabelas silver, realizar as devidas transformações e salvar tabela final a ser consumida pela banco de dados
+
+MySQL
+Executar MySQL via Docker para carga de dados e consulta
