@@ -99,5 +99,3 @@ for date in date_range:
     # Extração arquivo socios
     end_url = f"https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/{year_search}-{month_search}/{file_zip_soc}"
     download_and_extract_data(end_url, destination_folder, year_search, month_search)
-
-# ----------------------------------------------------------------
