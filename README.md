@@ -119,3 +119,15 @@ ETL será responsável por ler diretamente as tabelas silver, realizar as devida
 
 MySQL
 Executar MySQL via Docker para carga de dados e consulta
+
+Passo 1: Executar o Docker Compose
+No terminal, navegue até o diretório "docker/docker-compose.yml" e execute:
+
+docker-compose up -d
+
+Passo 2: Executar o script Python
+Certifique-se de que o container MySQL está em execução e execute o script Python:
+
+python src/pipelines/gold/load_data_to_mysql.py
+
+P.S. Consultar autor para informações ref. a arquivo .env

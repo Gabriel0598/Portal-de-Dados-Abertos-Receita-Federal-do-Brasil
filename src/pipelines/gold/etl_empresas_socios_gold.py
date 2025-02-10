@@ -62,10 +62,13 @@ df_gold_final = (df_flag_soc
                     df_dates_emp
                     , df_flag_soc.cnpj_soc == df_dates_emp.cnpj_emp
                     , 'inner'
-                 ).select(
-                      'data_carga_dados_emp'
-                      , 'data_origem_arquivo_emp'
-                      , 'cnpj_emp'
+                 ).withColumnRenamed("cnpj_emp", "cnpj")
+                 .withColumnRenamed("data_carga_dados_emp", "data_carga_dados")
+                 .withColumnRenamed("data_origem_arquivo_emp", "data_origem_arquivo")
+                 .select(
+                      'data_carga_dados'
+                      , 'data_origem_arquivo'
+                      , 'cnpj'
                       , 'qtde_socios'
                       , 'flag_socio_estrangeiro'
                       , 'doc_alvo'
