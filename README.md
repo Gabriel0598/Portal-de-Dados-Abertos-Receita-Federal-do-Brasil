@@ -1,6 +1,6 @@
 # Open Data Portal - Brazilian Federal Revenue Service
 
-The Brazilian Federal Revenue Service provides some open data about existing companies in Brazil. This data is public domain and freely accessible, but it may be up to 3 months out of date. Tables will be ingested from an endpoint and subsequently processed to generate aggregated data.
+The Brazilian Federal Revenue Service provides some open data about existing companies in Brazil. This data is public domain and freely accessible, but it may be up to 3 months out of date. Tables will be ingested from an endpoint and subsequently processed to generate aggregated data. You could find this data in: [Dados Abertos CNPJ - Receita Federal](https://arquivos.receitafederal.gov.br/dados/cnpj/dados_abertos_cnpj/)
 
 Based on the presented requirements, below is a general definition regarding the architecture and development solution.
 
