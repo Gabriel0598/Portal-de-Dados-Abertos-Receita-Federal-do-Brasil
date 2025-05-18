@@ -1,14 +1,15 @@
-# Portal-de-Dados-Abertos-Receita-Federal-do-Brasil
-A receita federal disponibiliza alguns dados abertos sobre as empresas existentes hoje no Brasil. Esses dados são de domínio público e livre acesso, porém eles podem sofrer um desatualização de até 3 meses. Será realizada ingestão de tabelas a partir de um endpoint e posterior processamento de dados para geração de dados agregados.
+# Open Data Portal - Brazilian Federal Revenue Service
 
-Com base nos requisitos apresentados , segue definição geral a respeito da solução de arquitetura e desenvolvimento.
+The Brazilian Federal Revenue Service provides some open data about existing companies in Brazil. This data is public domain and freely accessible, but it may be up to 3 months out of date. Tables will be ingested from an endpoint and subsequently processed to generate aggregated data.
+
+Based on the presented requirements, below is a general definition regarding the architecture and development solution.
 
 Medallion Architecture:
-- Bronze (Ingestão de dados brutos da Receita Federal via zip em endpoint/ Tabelas Bronze)
-- Silver (Normalização/ Data Cleaning/ Enrequecimento conforme regras de negócio/ Tabelas Silver)
-- Gold (Dados formatados com tipagem definida para consumo por aplicações e consultas analíticas/ Tabela Gold)
+- Bronze (Ingestion of raw data from the Federal Revenue Service via zip from endpoint / Bronze Tables)
+- Silver (Normalization / Data Cleaning / Enrichment according to business rules / Silver Tables)
+- Gold (Formatted data with defined typing for consumption by applications and analytical queries / Gold Table)
 
-Ferramentas:
+Tools:
 - Python
 - VSCode
 - PySpark
@@ -17,118 +18,120 @@ Ferramentas:
 - Airflow
 - SQL Server
 
-Estrutura de Desenvolvimento - Pipeline de Dados:
+Development Structure - Data Pipeline:
 
 1. Download:
-- Utilizar a biblioteca requests para baixar os arquivos ZIP do endpoint.
-- Extração do conteúdo dos ZIPs.
-2. Camada Bronze:
-- Salvar os arquivos brutos extraídos diretamente em um armazenamento.
-- Armazenamento local.
-3. Camada Silver:
-- Processar os dados brutos e mapear para os schemas definidos:
-  - Empresas: cnpj, razão_social, natureza_juridica, qualificacao_responsavel, capital_social, cod_porte.
-  - Sócios: cnpj, tipo_socio, nome_socio, documento_socio, codigo_qualificacao_socio.
-- Implementar validações e tratamento de erros (ex.: linhas com dados ausentes).
-4. Camada Gold:
-- Criar a tabela final com os campos:
-  - cnpj: Identificador único da empresa.
-  - qtde_socios: Número de sócios participantes.
-  - flag_socio_estrangeiro: Indicador de presença de sócios estrangeiros.
-  - doc_alvo: Flag indicando empresas-alvo.
-- Aplicar as regras de negócio:
-  - flag_socio_estrangeiro = True se documento_socio for estrangeiro.
-  - doc_alvo = True quando porte da empresa = 03 e qtde_socios > 1.
-5. Catálogo de dados de tabelas:
-- Tabelas silver seguem nomeclatura: slv
-- Tabelas gold seguem nomeclatura: gld
+- Use the requests library to download ZIP files from the endpoint.
+- Extract the contents of the ZIPs.
+2. Bronze Layer:
+- Save the extracted raw files directly to storage.
+- Local storage.
+3. Silver Layer:
+- Process the raw data and map to the defined schemas:
+  - Companies: cnpj, company_name, legal_nature, responsible_qualification, share_capital, company_size_code.
+  - Partners: cnpj, partner_type, partner_name, partner_document, partner_qualification_code.
+- Implement validations and error handling (e.g., rows with missing data).
+4. Gold Layer:
+- Create the final table with the fields:
+  - cnpj: Unique company identifier.
+  - qtde_socios: Number of participating partners.
+  - flag_socio_estrangeiro: Indicator of the presence of foreign partners.
+  - doc_alvo: Flag indicating target companies.
+- Apply business rules:
+  - flag_socio_estrangeiro = True if partner_document is foreign.
+  - doc_alvo = True when company_size_code = 03 and qtde_socios > 1.
+5. Data Catalog of Tables:
+- Silver tables follow the naming convention: slv
+- Gold tables follow the naming convention: gld
 
-# Arquitetura
-Este é um escopo geral da arquitetura de dados criado através da ferramenta Excalidraw, modelo se encontra nas pastas do repositório:
+# Architecture
+
+This is a general scope of the data architecture created using Excalidraw. The model can be found in the repository folders:
 ![image](https://github.com/user-attachments/assets/c2bdd2c9-f19f-4428-977b-295c6b3f0cdb)
 
-# Setup Inicial
-- Inicialmente você deve instalar a versão mais recente do Python em seu OS, sendo a mais recente em Jan/2025 a versão 3.13, é possível obtê-la a partir do site oficial: (https://www.python.org/)
-- Após basta abrir seu terminal na pasta do projeto, criar o ambiente venv e ativá-lo:
+# Initial Setup
+
+- First, you must install the latest version of Python on your OS. As of Jan/2025, the latest version is 3.13, available at the official site: (https://www.python.org/)
+- Then, open your terminal in the project folder, create the venv environment and activate it:
   - python3 -m venv .venv
   - source .venv/bin/activate
-- Confirmar que está ativo:
+- Confirm it is active:
   - which python
-- Para os pacotes a serem utilizados no projeto, utilizar o gerenciador de pacotes pip:
+- For the packages to be used in the project, use the pip package manager:
   - python3 -m pip install --upgrade pip
   - python3 -m pip --version
-- Criar e Instalar pacotes do arquivo de requirements.txt:
+- Create and install packages from the requirements.txt file:
   - pip freeze > requirements.txt
-Pacotes e versões a serem instalados já estão informados nos requirementos, apenas executar:
+Packages and versions to be installed are already listed in requirements, just run:
   - pip install -r requirements.txt
-Arquivo "requirements.txt" já atende a instalação da versão certifi correta, porém caso persista em apresentar erro de certificado SSL no momento do run do python de integração, realizar upgrade manualmente do certifi através do comando:
+The "requirements.txt" file already ensures the correct certifi version is installed, but if you still get an SSL certificate error when running the integration python, manually upgrade certifi with:
   - pip install --upgrade certifi
-Verifique o que foi instaldo:
+Check what was installed:
   - pip list
-Criar Databricks Workspace Premium em sua cloud de preferência e realizar os demais setups (Será necessário para executar ETL):
-  - Criar Cluster Personal Compute com configuração básica para execução de jobs (DS3V2/ SingleNode/ UnityCatalog Enabled)
-  - Configurar conexão VSCode e Databricks através do terminal no VS Code: databricks-connect configure
-  - Seguir passo a passo de conexão informando Host, Token, Cluster ID, Org-ID (Apenas para Azure) e Port
+Create a Databricks Premium Workspace in your preferred cloud and perform the other setups (Required to run ETL):
+  - Create a Personal Compute Cluster with basic configuration for job execution (DS3V2/ SingleNode/ UnityCatalog Enabled)
+  - Configure VSCode and Databricks connection via the VS Code terminal: databricks-connect configure
+  - Follow the connection steps providing Host, Token, Cluster ID, Org-ID (Azure only), and Port
 ![cli-db1](https://github.com/user-attachments/assets/4d842910-82cf-4958-b268-2cb2a4e982db)
 ![cli-db3](https://github.com/user-attachments/assets/b528e9bf-5360-4f24-a71e-354dc9b5ca24)
 
-## Estrutura de pastas
+## Folder Structure
 
 ![repo_structure](https://github.com/user-attachments/assets/699f48b6-8d7e-4d79-abe4-6cd511a79e64)
 
-- architecture (diagramas de arquitetura)
+- architecture (architecture diagrams)
 - data
-  - landing_zone (Dados brutos conforme origem - csv/ txt/ etc)
-  - bronze (Dados Brutos como parquet - Delta Lake)
-  - silver (Dados Refinados como parquet - Delta Lake)
-  - gold (Dados Enriquecidos como parquet - Delta Lake)
+  - landing_zone (Raw data as received - csv/ txt/ etc)
+  - bronze (Raw data as parquet - Delta Lake)
+  - silver (Refined data as parquet - Delta Lake)
+  - gold (Enriched data as parquet - Delta Lake)
 - docker (docker-file/ Docker Compose)
 - src
-  - data_exporter (Exportação para banco de dados relacional/ Consultas analíticas)
-  - pipelines (Códigos python/ pyspark para integração e transformação de dados, separados por camadas)
-  - utils (Pacotes utilitários)
-- Arquivos de configuração (.venv - ambiente python/ .gitignore/ LICENSE/ README.md/ etc)
+  - data_exporter (Export to relational database / Analytical queries)
+  - pipelines (Python/ PySpark code for data integration and transformation, separated by layers)
+  - utils (Utility packages)
+- Configuration files (.venv - python environment/ .gitignore/ LICENSE/ README.md/ etc)
 
-## Execução do projeto
+## Project Execution
 
 Databricks
-- Configurar e ligar cluster Databricks All-Purpose do tipo "Standard_DS3_v2", garantir que o cluster esteja sempre em execução de forma a realizar a transformação
+- Configure and start a Databricks All-Purpose cluster of type "Standard_DS3_v2", ensure the cluster is always running to perform the transformation
 
 Bronze
-- Executar "di-dados_abertos_cnpj.py" através de python "path_completo_arquivo"
+- Run "di-dados_abertos_cnpj.py" using python "full_file_path"
 - #### python "/c/Users/Proprietario/OneDrive/Documentos/Geral/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/src/pipelines/bronze/di-dados_abertos_cnpj.py"
-- Para execução parcial ou complementamente com sucesso será retornado via CLI:
+- For partial or complete execution, the result will be returned via CLI:
 ![code_exec](https://github.com/user-attachments/assets/759166d7-7a58-43d5-99d6-13966d8115ad)
 ![image](https://github.com/user-attachments/assets/047c6824-2f44-4af9-bd14-96ddb58bb2e6)
 
 Silver
-- Configurar movimentação dos arquivos locais para DBFS:
-  - Executar shell localizado na pasta automation:
+- Configure movement of local files to DBFS:
+  - Run the shell script located in the automation folder:
     - #### sh automation/databricks-configure-move-files.sh
-  - Informar path completo do seu diretório local até a pasta land_zone (Caso seja Windows informar seguindo padrão com / comuns)
+  - Provide the full path of your local directory to the land_zone folder (If using Windows, use forward slashes /)
     - #### Ex: "C:/Users/Proprietario/OneDrive/Documentos/Geral/Repo/Portal-de-Dados-Abertos-Receita-Federal-do-Brasil/data/bronze/land_zone"
-  - Após execução com sucesso arquivos serão movidos para DBFS
+  - After successful execution, files will be moved to DBFS
 ![cli-db4](https://github.com/user-attachments/assets/c2a4a8db-6633-4818-ab78-72f0bb9e38db)
 
-- Executar "etl_silver_empresas.py" via Databricks
-- Executar "etl_silver_socios.py" via Databricks
+- Run "etl_silver_empresas.py" via Databricks
+- Run "etl_silver_socios.py" via Databricks
 
 Gold
-- Executar "etl_tabela_gold.py" via Databricks
-ETL será responsável por ler diretamente as tabelas silver, realizar as devidas transformações e salvar tabela final a ser consumida pela banco de dados
+- Run "etl_tabela_gold.py" via Databricks
+The ETL will read directly from the silver tables, perform the necessary transformations, and save the final table to be consumed by the database
 
 MySQL
-Executar MySQL via Docker para carga de dados e consulta
+Run MySQL via Docker for data loading and querying
 
-Passo 1: Executar o Docker Compose
-No terminal, navegue até o diretório "docker/docker-compose.yml" e execute:
+Step 1: Run Docker Compose
+In the terminal, navigate to the "docker/docker-compose.yml" directory and run:
 
 docker-compose up -d
 
-Passo 2: Executar o script Python
-Certifique-se de que o container MySQL está em execução e execute o script Python:
+Step 2: Run the Python script
+Make sure the MySQL container is running and execute the Python script:
 
 python src/pipelines/gold/load_data_to_mysql.py
 
-P.S. Consultar autor para informações ref. a arquivo .env
-OBS. Veficar se serviço MySQL está rodando em sua máquina na porta 3306 e encerrar para evitar conflito com container
+P.S. Contact the author for information regarding the .env file
+Note: Check if the MySQL service is running on your machine on port 3306 and stop it to avoid conflicts with the container
